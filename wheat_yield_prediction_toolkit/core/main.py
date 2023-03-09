@@ -1,9 +1,13 @@
 import os
 
-from impute_weather_data import get_weather_all_locations, save_weather_data, get_weather_parallel
-from preprocessor import pre_process_yield, pre_process_weather
-from yield_data_collector import get_yield_parallel
 import pandas as pd
+from impute_weather_data import (
+    get_weather_all_locations,
+    get_weather_parallel,
+    save_weather_data,
+)
+from preprocessor import pre_process_weather, pre_process_yield
+from yield_data_collector import get_yield_parallel
 
 # Define the data path
 DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
@@ -27,7 +31,7 @@ print(yield_df.head())
 # weather_df = get_weather_all_locations(HIST_RANGE, yield_df["centroid"].unique().tolist())
 
 # # Save the weather data to parquet :
-path_to_save_weather = os.path.join(RAW_DATA, 'weather-data', 'historical-weather-data.parquet')
+path_to_save_weather = os.path.join(RAW_DATA, "weather-data", "historical-weather-data.parquet")
 # save_weather_data(HIST_RANGE, yield_df["centroid"].unique().tolist(), path_to_save_weather)
 
 # print(weather_df)
@@ -60,5 +64,3 @@ weather_df = pre_process_weather(weather_df)
 # save the new df :
 # path_to_save_weather_v2 = os.path.join(RAW_DATA, 'weather-data', 'historical-weather-data-v2.parquet')
 # weather_df.to_parquet(path_to_save_weather_v2)
-
-

@@ -6,9 +6,8 @@ import time
 
 import pandas as pd
 import requests
-from tqdm import tqdm
 from shapely import Point
-
+from tqdm import tqdm
 
 
 def get_weather(year, location=(-95.23525, 38.97167)):
@@ -37,7 +36,7 @@ def get_weather_(location, year):
     response.raise_for_status()
 
     df = pd.read_csv(io.StringIO(response.text), skiprows=26)
-    df['location'] = str(location)
+    df["location"] = str(location)
 
     return df
 
@@ -90,6 +89,7 @@ def get_weather_all_locations(HIST_RANGE, list_locations):
     elapsed_time = end_time - start_time
     print(f"Parallel weather data processing completed in {elapsed_time:.2f} seconds.")
     return pd.concat(results)
+
 
 def save_weather_data(HIST_RANGE: tuple, list_locations: list, file_path: str):
     """

@@ -346,7 +346,6 @@ def save_sat_data(HIST_RANGE: tuple, list_locations: list, file_path: str):
     print(f"Sat data saved to {os.path.abspath(file_path)}")
 
 
-
 # Main :
 if __name__ == "__main__":
 
@@ -424,4 +423,3 @@ if __name__ == "__main__":
     results = get_sat_all_locations([2010, 2011], counties)
 
     print(results)
-

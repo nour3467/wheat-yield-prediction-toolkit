@@ -1,12 +1,13 @@
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 import geopandas as gpd
 import shapely
 from shapely.geometry import Polygon
-from concurrent.futures import ThreadPoolExecutor
 from tqdm import tqdm
 
 # Define all pre-processing functions
+
 
 def compute_GDD(df):
     """Computes Growing Degree Days (GDD) index for a given dataframe.
@@ -72,8 +73,10 @@ def compute_Index(df):
     df = compute_ECDD(df)
     return df
 
+
 def create_weather_list(row):
-    return list(row.drop(exclude=['YEAR', 'location', 'MO', 'DY']))
+    return list(row.drop(exclude=["YEAR", "location", "MO", "DY"]))
+
 
 def get_counties_boundries():
 
@@ -149,13 +152,6 @@ def pre_process_weather(weather_df):
     with ThreadPoolExecutor() as executor:
         results = list(executor.map(create_weather_list, (row for _, row in weather_df.iterrows())))
 
-    weather_df['weather_list'] = results
+    weather_df["weather_list"] = results
 
-    return (
-        weather_df.groupby(['YEAR', 'location'])
-        .agg({'weather_list': list})
-        .reset_index()
-    )
-
-
-
+    return weather_df.groupby(["YEAR", "location"]).agg({"weather_list": list}).reset_index()
